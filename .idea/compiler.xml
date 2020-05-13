@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="AndroidTimes.app" target="1.8" />
+      <module name="AndroidTimes.net" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
