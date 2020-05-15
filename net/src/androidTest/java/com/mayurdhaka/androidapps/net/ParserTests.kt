@@ -1,6 +1,5 @@
 package com.mayurdhaka.androidapps.net
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.runBlocking
 
@@ -15,17 +14,21 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class ParserTests {
 	private val feedFetcher: FeedFetcher = FeedFetcher()
 	@Test
-	fun addition_isCorrect() {
+	fun assertAtomAndRSSFeedsAreFetchedAndParsed() {
 		runBlocking {
-			val dfFeeds = feedFetcher
+			// These tests can break at any time if the source breaks.
+			//
+			// RSS 2.0 Feed:
+			val bbcFeed = feedFetcher
 				.getFeedAtURL("http://feeds.bbci.co.uk/news/technology/rss.xml")
-			val vergeFeeds = feedFetcher
-				.getFeedAtURL("http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml")
-			assertFalse(dfFeeds.isEmpty())
-			assertFalse(vergeFeeds.isEmpty())
+			// ATOM 1.0 Feed:
+			val vergeFeed = feedFetcher
+				.getFeedAtURL("https://www.theverge.com/rss/index.xml")
+			assertFalse(bbcFeed.isEmpty())
+			assertFalse(vergeFeed.isEmpty())
 		}
 	}
 }
