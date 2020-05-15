@@ -28,7 +28,7 @@ class FeedFetcher {
 	private fun parseEntries(stream: Reader): List<Entry> {
 		val entries: MutableList<Entry> = mutableListOf()
 		parser.setInput(stream)
-		var eventType: Int = parser.getEventType()
+		var eventType: Int = parser.eventType
 		while (eventType != XmlPullParser.END_DOCUMENT) {
 			if (eventType == XmlPullParser.START_DOCUMENT) {
 				println("Start document")
@@ -42,9 +42,9 @@ class FeedFetcher {
 					// so we don't want the parsing to stop.
 				}
 			} else if (eventType == XmlPullParser.END_TAG) {
-				System.out.println("End tag " + parser.getName())
+				System.out.println("End tag " + parser.name)
 			} else if (eventType == XmlPullParser.TEXT) {
-				System.out.println("Text " + parser.getText())
+				System.out.println("Text " + parser.text)
 			}
 			eventType = parser.next()
 		}
@@ -59,7 +59,7 @@ class FeedFetcher {
 		var assignNextTextToTitle = false
 		var assignNextTextToContent = false
 
-		var eventType: Int = xpp.getEventType()
+		var eventType: Int = xpp.eventType
 		while (eventType != XmlPullParser.END_DOCUMENT) {
 			if (title != null && content != null) {
 				return Entry(title, content)
