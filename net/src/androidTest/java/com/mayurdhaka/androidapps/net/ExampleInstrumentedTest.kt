@@ -2,6 +2,7 @@ package com.mayurdhaka.androidapps.net
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import kotlinx.coroutines.runBlocking
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,10 +16,16 @@ import org.junit.Assert.*
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.mayurdhaka.androidapps.net.test", appContext.packageName)
-    }
+	private val feedFetcher: FeedFetcher = FeedFetcher()
+	@Test
+	fun addition_isCorrect() {
+		runBlocking {
+			val dfFeeds = feedFetcher
+				.getFeedAtURL("http://feeds.bbci.co.uk/news/technology/rss.xml")
+			val vergeFeeds = feedFetcher
+				.getFeedAtURL("http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml")
+			assertFalse(dfFeeds.isEmpty())
+			assertFalse(vergeFeeds.isEmpty())
+		}
+	}
 }

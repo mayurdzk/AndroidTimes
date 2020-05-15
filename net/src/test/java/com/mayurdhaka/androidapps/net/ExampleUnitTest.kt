@@ -1,17 +1,21 @@
 package com.mayurdhaka.androidapps.net
 
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Assert.*
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 class ExampleUnitTest {
+	private val feedFetcher: FeedFetcher = FeedFetcher()
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        runBlocking {
+			val dfFeeds = feedFetcher
+				.getFeedAtURL("https://daringfireball.net/feeds/main")
+			val vergeFeeds = feedFetcher
+				.getFeedAtURL("https://www.theverge.com/rss/index.xml")
+			assertFalse(dfFeeds.isEmpty())
+			assertFalse(vergeFeeds.isEmpty())
+		}
     }
 }
