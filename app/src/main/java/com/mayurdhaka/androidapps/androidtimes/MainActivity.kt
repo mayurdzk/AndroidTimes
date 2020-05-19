@@ -16,6 +16,9 @@ import androidx.ui.material.MaterialTheme
 import androidx.ui.tooling.preview.Preview
 import androidx.ui.unit.dp
 import androidx.ui.viewinterop.AndroidView
+import com.mayurdhaka.androidapps.androidtimes.views.EntryView
+import com.mayurdhaka.androidapps.androidtimes.views.FeedView
+import com.mayurdhaka.androidapps.androidtimes.views.samplePost
 import com.mayurdhaka.androidapps.net.Entry
 
 class MainActivity : AppCompatActivity() {
@@ -23,15 +26,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                EntryView(samplePost)
+                FeedView(getListOfEntries())
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+private fun getListOfEntries(): List<Entry> {
+	return listOf(
+		samplePost,
+		samplePost,
+		samplePost,
+		samplePost,
+		samplePost,
+		samplePost,
+		samplePost,
+		samplePost,
+		samplePost
+	)
 }
-
 
